@@ -11,6 +11,7 @@ void print_error(const char* msg, const char* token) {
 
 %%
 
+/* write your rules , regexes here */
 . {  print_error("unrecognized symbol", yytext);
     exit(1);
     }
