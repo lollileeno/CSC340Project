@@ -46,6 +46,22 @@ or                     { printf("OR\n"); column += yyleng; }
 not                    { printf("NOT\n"); column += yyleng; }
 true                   { printf("TRUE\n"); column += yyleng; }
 false                  { printf("FALSE\n"); column += yyleng; }
+"-"                    { printf("SUB\n"); column += yyleng; }
+"+"                    { printf("ADD\n"); column += yyleng; }
+"*"                    { printf("MULT\n"); column += yyleng; }
+"/"                    { printf("DIV\n"); column += yyleng; }
+"="                    { printf("EQ\n"); column += yyleng; }
+"<>"                   { printf("NEQ\n"); column += yyleng; }
+"<="                   { printf("LTE\n"); column += yyleng; }
+">="                   { printf("GTE\n"); column += yyleng; }
+"<"                    { printf("LT\n"); column += yyleng; }
+">"                    { printf("GT\n"); column += yyleng; }
+";"                    { printf("SEMICOLON\n"); column += yyleng; }
+":"                    { printf("COLON\n"); column += yyleng; }
+","                    { printf("COMMA\n"); column += yyleng; }
+"("                    { printf("L_PAREN\n"); column += yyleng; }
+")"                    { printf("R_PAREN\n"); column += yyleng; }
+":="                   { printf("ASSIGN\n"); column += yyleng; }
 
 {number} { printf("NUMBER %s\n", yytext);
 column += yyleng;
