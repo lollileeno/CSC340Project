@@ -57,11 +57,11 @@ false                  { printf("FALSE\n"); column += yyleng; }
 "<"                    { printf("LT\n"); column += yyleng; }
 ">"                    { printf("GT\n"); column += yyleng; }
 ";"                    { printf("SEMICOLON\n"); column += yyleng; }
+":="                   { printf("ASSIGN\n"); column += yyleng; }
 ":"                    { printf("COLON\n"); column += yyleng; }
 ","                    { printf("COMMA\n"); column += yyleng; }
 "("                    { printf("L_PAREN\n"); column += yyleng; }
 ")"                    { printf("R_PAREN\n"); column += yyleng; }
-":="                   { printf("ASSIGN\n"); column += yyleng; }
 
 {number} { printf("NUMBER %s\n", yytext);
 column += yyleng;
