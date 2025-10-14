@@ -20,6 +20,33 @@ identifier [a-zA-Z0-9_]{1,8}
 
 %%
 
+"--".*                 {  }
+
+[ \t\r]+               { column += yyleng;  }
+
+\n                     { line++; column = 1; }   
+
+program                { printf("PROGRAM\n"); column += yyleng; }
+beginprogram           { printf("BEGIN_PROGRAM\n"); column += yyleng; }
+endprogram             { printf("END_PROGRAM\n"); column += yyleng; }
+integer                { printf("INTEGER\n"); column += yyleng; }
+array                  { printf("ARRAY\n"); column += yyleng; }
+of                     { printf("OF\n"); column += yyleng; }
+if                     { printf("IF\n"); column += yyleng; }
+then                   { printf("THEN\n"); column += yyleng; }
+endif                  { printf("ENDIF\n"); column += yyleng; }
+else                   { printf("ELSE\n"); column += yyleng; }
+while                  { printf("WHILE\n"); column += yyleng; }
+loop                   { printf("LOOP\n"); column += yyleng; }
+endloop                { printf("ENDLOOP\n"); column += yyleng; }
+read                   { printf("READ\n"); column += yyleng; }
+write                  { printf("WRITE\n"); column += yyleng; }
+and                    { printf("AND\n"); column += yyleng; }
+or                     { printf("OR\n"); column += yyleng; }
+not                    { printf("NOT\n"); column += yyleng; }
+true                   { printf("TRUE\n"); column += yyleng; }
+false                  { printf("FALSE\n"); column += yyleng; }
+
 {number} { printf("NUMBER %s\n", yytext);
 column += yyleng;
 }
