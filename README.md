@@ -4,7 +4,9 @@ This phase is done by: Leena Alonayq 444200942 - Shahad Aldamegh 444201207 - Ama
 The objective of this phase is producing lexical analyzer of a simple programming language which called Tiny.
 - the assistance is recieved by taking the notes of course slides, homework1 and tutorials, asking AI assistances when we facing problems or confusions.
 - we declared print_error method and counters for lines and columns in declarations section to manage error explanation.
-- we handled keywords, comments, whitespaces, lines, unrecognized symbols manually in rules/actions section of the code.
+- we declared a regex for each of digits, numbers, and identifiers in declarations section of the code.
+- we handled defining of keywords, comments, whitespaces, lines, operators, and special symbols manually in rules/actions section of the code.
+- we handeled error cases of invalid identifiers and unrecognized symbols in the rules/actions section of the code.
 
 
 Additional Feedback or Comments:
