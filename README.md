@@ -1,5 +1,10 @@
 # CSC340Project - PHASE 1 - Section#44260 - Group#2
-This phase is done by: Leena Alonayq 444200942 - Shahad Aldamegh 444201207 - Amal Almaliki 444201022 - Renad Aljarallah 444201212
+This phase is done by:
+
+Leena Alonayq 444200942
+Shahad Aldamegh 444201207 
+Amal Almaliki 444201022
+Renad Aljarallah 444201212
 
 The objective of this phase is producing lexical analyzer of a simple programming language which called Tiny.
 
