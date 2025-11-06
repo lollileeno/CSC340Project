@@ -38,6 +38,9 @@ void print_result(int value) {
 %token ADD SUB MULT DIV
 %token EQ NEQ LT GT LTE GTE
 %token ASSIGN SEMICOLON COLON COMMA L_PAREN R_PAREN
+%nonassoc LOWER_THAN_ELSE
+%nonassoc ELSE
+
 
 
 %type <ival> expression rel condition cond_and cond_or
@@ -63,10 +66,17 @@ declarations:
 ;
 
 declaration:
-      IDENT COLON type
-        { emit_prod("declaration","IDENT COLON type"); }
-    | IDENT COLON ARRAY L_PAREN NUMBER R_PAREN OF type
-        { emit_prod("declaration","IDENT COLON ARRAY L_PAREN NUMBER R_PAREN OF type"); }
+      id_list COLON type
+        { emit_prod("declaration","id_list COLON type"); }
+    | id_list COLON ARRAY L_PAREN NUMBER R_PAREN OF type
+        { emit_prod("declaration","id_list COLON ARRAY L_PAREN NUMBER R_PAREN OF type"); }
+;
+
+id_list:
+      IDENT
+      { emit_prod("id_list", "IDENT"); }
+    | id_list COMMA IDENT
+        { emit_prod("id_list","id_list COMMA IDENT"); }
 ;
 
 type:
@@ -93,10 +103,13 @@ assignment:
         emit_prod("assignment","IDENT ASSIGN expression");
         print_result($3);
       }
+    | IDENT L_PAREN expression R_PAREN ASSIGN expression
+      { emit_prod("assignment","IDENT L_PAREN expression R_PAREN ASSIGN expression"); }
+
 ;
 
 if_stmt:
-      IF condition THEN statements ENDIF
+      IF condition THEN statements %prec LOWER_THAN_ELSE ENDIF
         { emit_prod("if_stmt","IF condition THEN statements ENDIF"); }
     | IF condition THEN statements ELSE statements ENDIF
         { emit_prod("if_stmt","IF condition THEN statements ELSE statements ENDIF"); }
@@ -108,13 +121,22 @@ while_stmt:
 ;
 
 io_stmt:
-      READ id_list  { emit_prod("io_stmt","READ id_list"); }
-    | WRITE id_list { emit_prod("io_stmt","WRITE id_list"); }
+      READ var_list  { emit_prod("io_stmt","READ var_list"); }
+    | WRITE var_list { emit_prod("io_stmt","WRITE var_list"); }
 ;
 
-id_list:
-      IDENT { emit_prod("id_list","IDENT"); }
-    | IDENT COMMA id_list { emit_prod("id_list","IDENT COMMA id_list"); }
+var_list:
+      var
+      { emit_prod("var_list","var"); }
+    |  var_list COMMA var 
+        { emit_prod("var_list","var_list COMMA var"); }
+;
+
+var:
+      IDENT
+      { emit_prod("var","IDENT"); }
+    |  IDENT L_PAREN expression R_PAREN
+        { emit_prod("var","IDENT L_PAREN expression R_PAREN"); }
 ;
 
 condition:
@@ -157,7 +179,8 @@ expression:
           } else $$ = $1 / $3;
       }
     | L_PAREN expression R_PAREN { emit_prod("expression","L_PAREN expression R_PAREN"); $$ = $2; }
-    | IDENT { emit_prod("expression","IDENT"); $$ = 0; /* variable handling not implemented */ }
+    | IDENT { emit_prod("expression","IDENT"); $$ = 0; }
+    | IDENT L_PAREN expression R_PAREN { emit_prod("expression","IDENT L_PAREN expression R_PAREN"); $$ = 0; }
     | NUMBER { emit_prod("expression","NUMBER"); $$ = $1; }
     | SUB expression %prec SUB { emit_prod("expression","SUB expression (unary)"); $$ = -$2; }
 ;
