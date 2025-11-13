@@ -1,0 +1,6 @@
+program lexicalDemo;
+beginprogram
+1x := 5 + 3;          -- invalid: starts with number
+_y := 4 * 2;          -- invalid: starts with underscore
+z_ := 10 / 2;         -- invalid: ends with underscore
+endprogram
