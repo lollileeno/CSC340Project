@@ -1,0 +1,71 @@
+statement -> error
+
+program -> PROGRAM IDENT SEMICOLON declarations BEGIN_PROGRAM statements END_PROGRAM
+
+declarations -> epsilon
+| declaration SEMICOLON declarations
+
+declaration -> id_list COLON type
+| id_list COLON ARRAY L_PAREN NUMBER R_PAREN OF type
+
+id_list -> IDENT
+| id_list COMMA IDENT
+
+type -> INTEGER
+
+statements -> epsilon
+| statement
+| statement SEMICOLON statements
+
+statement -> assignment
+| if_stmt
+| while_stmt
+| io_stmt
+| error
+
+assignment -> IDENT ASSIGN expression
+| IDENT L_PAREN expression R_PAREN ASSIGN expression
+
+if_stmt -> IF condition THEN statements ENDIF
+| IF condition THEN statements ELSE statements ENDIF
+
+while_stmt -> WHILE condition LOOP statements ENDLOOP
+
+io_stmt -> READ var_list
+| WRITE var_list
+
+var_list -> var
+| var_list COMMA var
+
+var -> IDENT
+| IDENT L_PAREN expression R_PAREN
+
+condition -> cond_or
+
+cond_or -> cond_and
+| cond_or OR cond_and
+
+cond_and -> rel
+| cond_and AND rel
+
+rel -> expression
+| expression EQ expression
+| expression NEQ expression
+| expression LT expression
+| expression GT expression
+| expression LTE expression
+| expression GTE expression
+| NOT rel
+| TRUE
+| FALSE
+| L_PAREN condition R_PAREN
+
+expression -> expression ADD expression
+| expression SUB expression
+| expression MULT expression
+| expression DIV expression
+| L_PAREN expression R_PAREN
+| IDENT
+| IDENT L_PAREN expression R_PAREN
+| NUMBER
+| SUB expression
