@@ -1,0 +1,6 @@
+program calcTest;
+beginprogram
+x := 2 + 3 * 4;
+y := (2 < 5) and (3 = 3);
+z := not (10 < 5);
+endprogram
