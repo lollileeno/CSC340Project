@@ -1,6 +1,9 @@
 program calcTest;
 beginprogram
 x := 5 + ;        -- Missing right-hand side of addition
-y := (2 < 5) and ;
-z := not (10 < );
+
+if i<j and then   -- Missing condition after and
+y := 4 / 2 ;
+endif;            -- Missing else
+
 endprogram
