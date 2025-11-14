@@ -1,0 +1,6 @@
+program test;
+beginprogram
+x := 5;
+y := x + 3;
+write y;
+endprogram
