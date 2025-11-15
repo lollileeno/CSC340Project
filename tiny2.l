@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "tiny.tab.h"   
+#include "y.tab.h"   
 
 int line = 1;
 int column = 1;
@@ -45,8 +45,6 @@ or                      { column += yyleng; return OR; }
 not                     { column += yyleng; return NOT; }
 true                    { column += yyleng; return TRUE; }
 false                   { column += yyleng; return FALSE; }
-
-/* Operators and punctuation */
 ":="                    { column += yyleng; return ASSIGN; }
 "<>"                    { column += yyleng; return NEQ; }
 "<="                    { column += yyleng; return LTE; }
@@ -72,12 +70,15 @@ false                   { column += yyleng; return FALSE; }
 }
 
 {identifier} {
-    if (yytext[0] == '_' || isdigit(yytext[0])) {
+    if (isdigit(yytext[0]) || yytext[0] == '_') {
         print_error("identifier must begin with a letter", yytext);
-        exit(1);
+        return IDENT;
+
+
     } else if (yytext[yyleng-1] == '_') {
         print_error("identifier cannot end with an underscore", yytext);
-        exit(1);
+        return IDENT;
+
     } else {
         yylval.sval = strdup(yytext);
         column += yyleng;
@@ -88,7 +89,6 @@ false                   { column += yyleng; return FALSE; }
 
 . {
     print_error("unrecognized symbol", yytext);
-    exit(1);
 }
 %%
 
